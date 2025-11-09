@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khám phá Hoán Vị, Chỉnh Hợp và Tổ Hợp - Chủ đề Giáng Sinh</title>
+    <style>
+        :root {
+            --primary-color: #2E8B57;
+            --secondary-color: #DC143C;
+            --accent-color: #FFD700;
+            --background-color: #f0f8ff;
+            --text-color: #333;
+            --snow-color: #ffffff;
+            --christmas-red: #B22222;
+            --christmas-green: #228B22;
+            --christmas-gold: #DAA520;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            background-image: linear-gradient(to bottom, #e6f7ff, #cceeff);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 3px solid var(--christmas-red);
+            position: relative;
+        }
+
+        h1 {
+            color: var(--christmas-red);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .snowflake {
+            position: absolute;
+            background-color: var(--snow-color);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.8;
+            z-index: 1;
+        }
+
+        .section {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            border: 2px solid var(--christmas-green);
+            position: relative;
+            z-index: 10;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            color: var(--christmas-green);
+            border-bottom: 2px solid var(--christmas-red);
+            padding-bottom: 10px;
+        }
+
+        .definition {
+            background-color: rgba(34, 139, 34, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid var(--christmas-green);
+        }
+
+        .formula {
+            background-color: rgba(218, 165, 32, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            border-left: 5px solid var(--christmas-gold);
+        }
+
+        .quiz-container {
+            background-color: rgba(178, 34, 34, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid var(--christmas-red);
+        }
+
+        .question {
+            margin-bottom: 15px;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .option {
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .option:hover {
+            background-color: rgba(34, 139, 34, 0.1);
+        }
+
+        .option.selected {
+            border-color: var(--christmas-green);
+            background-color: rgba(34, 139, 34, 0.2);
+        }
+
+        .option.correct {
+            border-color: #4CAF50;
+            background-color: rgba(76, 175, 80, 0.2);
+        }
+
+        .option.incorrect {
+            border-color: #F44336;
+            background-color: rgba(244, 67, 54, 0.2);
+        }
+
+        button {
+            background-color: var(--christmas-red);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #8B0000;
+            transform: translateY(-2px);
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background-color: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4CAF50;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background-color: rgba(244, 67, 54, 0.2);
+            border: 1px solid #F44336;
+            display: block;
+        }
+
+        .calculator {
+            background-color: rgba(218, 165, 32, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid var(--christmas-gold);
+        }
+
+        .calculator input {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin: 0 5px;
+        }
+
+        .calculator button {
+            background-color: var(--christmas-gold);
+            color: #333;
+        }
+
+        .calculator button:hover {
+            background-color: #B8860B;
+        }
+
+        .result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .interactive-example {
+            background-color: rgba(34, 139, 34, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid var(--christmas-green);
+        }
+
+        .example-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .visualization {
+            min-height: 200px;
+            border: 1px dashed #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item {
+            background-color: var(--christmas-red);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .item:hover {
+            transform: scale(1.1);
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, var(--christmas-green), var(--christmas-red));
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        /* Trang trí Giáng Sinh */
+        .christmas-tree {
+            position: fixed;
+            bottom: 0;
+            right: 20px;
+            width: 150px;
+            height: 200px;
+            z-index: 5;
+        }
+
+        .santa {
+            position: fixed;
+            bottom: 0;
+            left: 20px;
+            width: 120px;
+            height: 150px;
+            z-index: 5;
+        }
+
+        .gift {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            z-index: 5;
+        }
+
+        .snow-ground {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background-color: white;
+            z-index: 4;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .ornament {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .options {
+                grid-template-columns: 1fr;
+            }
+            
+            .example-controls {
+                flex-direction: column;
+            }
+            
+            .christmas-tree, .santa, .gift {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Trang trí Giáng Sinh -->
+    <div class="snow-ground"></div>
+    
+    <div class="christmas-tree">
+        <svg viewBox="0 0 100 200">
+            <!-- Thân cây -->
+            <polygon points="50,10 20,60 80,60" fill="#228B22"/>
+            <polygon points="50,40 15,100 85,100" fill="#228B22"/>
+            <polygon points="50,70 10,140 90,140" fill="#228B22"/>
+            <!-- Thân -->
+            <rect x="45" y="140" width="10" height="20" fill="#8B4513"/>
+            <!-- Trang trí -->
+            <circle cx="35" cy="45" r="3" fill="#FFD700"/>
+            <circle cx="65" cy="45" r="3" fill="#DC143C"/>
+            <circle cx="50" cy="65" r="3" fill="#FFD700"/>
+            <circle cx="30" cy="85" r="3" fill="#DC143C"/>
+            <circle cx="70" cy="85" r="3" fill="#FFD700"/>
+            <circle cx="50" cy="105" r="3" fill="#DC143C"/>
+            <circle cx="25" cy="125" r="3" fill="#FFD700"/>
+            <circle cx="75" cy="125" r="3" fill="#DC143C"/>
+            <!-- Ngôi sao -->
+            <polygon points="50,5 52,15 62,15 55,20 57,30 50,25 43,30 45,20 38,15 48,15" fill="#FFD700"/>
+        </svg>
+    </div>
+    
+    <div class="santa">
+        <svg viewBox="0 0 100 150">
+            <!-- Thân -->
+            <ellipse cx="50" cy="100" rx="30" ry="40" fill="#DC143C"/>
+            <!-- Đầu -->
+            <circle cx="50" cy="50" r="25" fill="#FFEBCD"/>
+            <!-- Mũ -->
+            <path d="M30,30 L50,10 L70,30 L65,30 L65,45 L35,45 L35,30 Z" fill="#DC143C"/>
+            <circle cx="50" cy="10" r="10" fill="white"/>
+            <!-- Râu -->
+            <path d="M40,50 Q50,70 60,50" stroke="#D3D3D3" stroke-width="8" fill="none"/>
+            <!-- Mắt -->
+            <circle cx="45" cy="45" r="2" fill="black"/>
+            <circle cx="55" cy="45" r="2" fill="black"/>
+            <!-- Túi quà -->
+            <rect x="40" y="100" width="20" height="25" fill="#8B4513"/>
+            <rect x="45" y="105" width="10" height="15" fill="#FFD700"/>
+        </svg>
+    </div>
+    
+    <div class="gift">
+        <svg viewBox="0 0 100 100">
+            <!-- Hộp quà -->
+            <rect x="20" y="30" width="60" height="40" fill="#DC143C"/>
+            <!-- Nắp hộp -->
+            <rect x="15" y="25" width="70" height="10" fill="#228B22"/>
+            <!-- Dây ruy băng -->
+            <rect x="48" y="25" width="4" height="45" fill="#FFD700"/>
+            <rect x="20" y="48" width="60" height="4" fill="#FFD700"/>
+            <!-- Nơ -->
+            <polygon points="48,25 43,15 53,15" fill="#FFD700"/>
+            <polygon points="52,25 47,15 57,15" fill="#FFD700"/>
+        </svg>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>🎄 Khám phá Hoán Vị, Chỉnh Hợp và Tổ Hợp 🎄</h1>
+            <p>Một hành trình toán học thú vị trong không khí Giáng Sinh!</p>
+        </header>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <!-- Phần Hoán Vị -->
+        <section id="hoan-vi" class="section">
+            <h2>🎁 Hoán Vị</h2>
+            
+            <div class="definition">
+                <h3>Định nghĩa</h3>
+                <p>Hoán vị là cách sắp xếp thứ tự của tất cả các phần tử trong một tập hợp.</p>
+                <p>Ví dụ: Với tập hợp {A, B, C}, các hoán vị là: ABC, ACB, BAC, BCA, CAB, CBA.</p>
+            </div>
+            
+            <div class="formula">
+                <h3>Công thức</h3>
+                <p>Số hoán vị của n phần tử: P(n) = n! = n × (n-1) × (n-2) × ... × 2 × 1</p>
+            </div>
+            
+            <div class="calculator">
+                <h3>Máy tính hoán vị</h3>
+                <p>Tính số hoán vị của n phần tử:</p>
+                <input type="number" id="permutation-n" min="1" max="10" value="3">
+                <button onclick="calculatePermutation()">Tính</button>
+                <div class="result" id="permutation-result"></div>
+            </div>
+            
+            <div class="interactive-example">
+                <h3>Ví dụ tương tác</h3>
+                <p>Sắp xếp các phần tử theo thứ tự khác nhau:</p>
+                <div class="example-controls">
+                    <button onclick="generatePermutationExample()">Tạo ví dụ mới</button>
+                    <button onclick="showAllPermutations()">Hiển thị tất cả hoán vị</button>
+                </div>
+                <div class="visualization" id="permutation-visualization">
+                    <!-- Các phần tử sẽ được hiển thị ở đây -->
+                </div>
+            </div>
+            
+            <div class="quiz-container">
+                <h3>Luyện tập</h3>
+                <div class="question">
+                    <p><strong>Câu 1:</strong> Có bao nhiêu cách sắp xếp 5 cuốn sách khác nhau lên kệ?</p>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A. 5</div>
+                        <div class="option" onclick="selectOption(this)">B. 10</div>
+                        <div class="option" onclick="selectOption(this)">C. 60</div>
+                        <div class="option" onclick="selectOption(this)">D. 120</div>
+                    </div>
+                    <button onclick="checkAnswer(1, 'D')">Kiểm tra</button>
+                    <div class="feedback" id="feedback-1"></div>
+                </div>
+                
+                <div class="question">
+                    <p><strong>Câu 2:</strong> Có 4 người bạn muốn chụp ảnh cùng nhau. Hỏi có bao nhiêu cách sắp xếp vị trí đứng?</p>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A. 4</div>
+                        <div class="option" onclick="selectOption(this)">B. 8</div>
+                        <div class="option" onclick="selectOption(this)">C. 16</div>
+                        <div class="option" onclick="selectOption(this)">D. 24</div>
+                    </div>
+                    <button onclick="checkAnswer(2, 'D')">Kiểm tra</button>
+                    <div class="feedback" id="feedback-2"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phần Chỉnh Hợp -->
+        <section id="chinh-hop" class="section">
+            <h2>🔔 Chỉnh Hợp</h2>
+            
+            <div class="definition">
+                <h3>Định nghĩa</h3>
+                <p>Chỉnh hợp là cách chọn và sắp xếp thứ tự k phần tử từ n phần tử (k ≤ n).</p>
+                <p>Ví dụ: Từ tập hợp {A, B, C, D}, chọn và sắp xếp 2 phần tử: AB, AC, AD, BA, BC, BD, CA, CB, CD, DA, DB, DC.</p>
+            </div>
+            
+            <div class="formula">
+                <h3>Công thức</h3>
+                <p>Số chỉnh hợp chập k của n phần tử: A(n,k) = n! / (n-k)!</p>
+            </div>
+            
+            <div class="calculator">
+                <h3>Máy tính chỉnh hợp</h3>
+                <p>Tính số chỉnh hợp chập k của n phần tử:</p>
+                n = <input type="number" id="arrangement-n" min="1" max="10" value="4">
+                k = <input type="number" id="arrangement-k" min="1" max="10" value="2">
+                <button onclick="calculateArrangement()">Tính</button>
+                <div class="result" id="arrangement-result"></div>
+            </div>
+            
+            <div class="interactive-example">
+                <h3>Ví dụ tương tác</h3>
+                <p>Chọn và sắp xếp k phần tử từ n phần tử:</p>
+                <div class="example-controls">
+                    <button onclick="generateArrangementExample()">Tạo ví dụ mới</button>
+                    <button onclick="showAllArrangements()">Hiển thị tất cả chỉnh hợp</button>
+                </div>
+                <div class="visualization" id="arrangement-visualization">
+                    <!-- Các phần tử sẽ được hiển thị ở đây -->
+                </div>
+            </div>
+            
+            <div class="quiz-container">
+                <h3>Luyện tập</h3>
+                <div class="question">
+                    <p><strong>Câu 1:</strong> Có 5 ứng viên cho 3 vị trí khác nhau (chủ tịch, phó chủ tịch, thư ký). Hỏi có bao nhiêu cách chọn?</p>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A. 10</div>
+                        <div class="option" onclick="selectOption(this)">B. 15</div>
+                        <div class="option" onclick="selectOption(this)">C. 60</div>
+                        <div class="option" onclick="selectOption(this)">D. 125</div>
+                    </div>
+                    <button onclick="checkAnswer(3, 'C')">Kiểm tra</button>
+                    <div class="feedback" id="feedback-3"></div>
+                </div>
+                
+                <div class="question">
+                    <p><strong>Câu 2:</strong> Từ các chữ số 1, 2, 3, 4, 5 có thể lập được bao nhiêu số có 3 chữ số khác nhau?</p>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A. 10</div>
+                        <div class="option" onclick="selectOption(this)">B. 60</div>
+                        <div class="option" onclick="selectOption(this)">C. 125</div>
+                        <div class="option" onclick="selectOption(this)">D. 243</div>
+                    </div>
+                    <button onclick="checkAnswer(4, 'B')">Kiểm tra</button>
+                    <div class="feedback" id="feedback-4"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phần Tổ Hợp -->
+        <section id="to-hop" class="section">
+            <h2>⭐ Tổ Hợp</h2>
+            
+            <div class="definition">
+                <h3>Định nghĩa</h3>
+                <p>Tổ hợp là cách chọn k phần tử từ n phần tử mà không quan tâm đến thứ tự (k ≤ n).</p>
+                <p>Ví dụ: Từ tập hợp {A, B, C, D}, chọn 2 phần tử: AB, AC, AD, BC, BD, CD.</p>
+            </div>
+            
+            <div class="formula">
+                <h3>Công thức</h3>
+                <p>Số tổ hợp chập k của n phần tử: C(n,k) = n! / [k! × (n-k)!]</p>
+            </div>
+            
+            <div class="calculator">
+                <h3>Máy tính tổ hợp</h3>
+                <p>Tính số tổ hợp chập k của n phần tử:</p>
+                n = <input type="number" id="combination-n" min="1" max="10" value="4">
+                k = <input type="number" id="combination-k" min="1" max="10" value="2">
+                <button onclick="calculateCombination()">Tính</button>
+                <div class="result" id="combination-result"></div>
+            </div>
+            
+            <div class="interactive-example">
+                <h3>Ví dụ tương tác</h3>
+                <p>Chọn k phần tử từ n phần tử (không quan tâm thứ tự):</p>
+                <div class="example-controls">
+                    <button onclick="generateCombinationExample()">Tạo ví dụ mới</button>
+                    <button onclick="showAllCombinations()">Hiển thị tất cả tổ hợp</button>
+                </div>
+                <div class="visualization" id="combination-visualization">
+                    <!-- Các phần tử sẽ được hiển thị ở đây -->
+                </div>
+            </div>
+            
+            <div class="quiz-container">
+                <h3>Luyện tập</h3>
+                <div class="question">
+                    <p><strong>Câu 1:</strong> Có 5 người, cần chọn 2 người để tham gia một cuộc họp. Hỏi có bao nhiêu cách chọn?</p>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A. 5</div>
+                        <div class="option" onclick="selectOption(this)">B. 10</div>
+                        <div class="option" onclick="selectOption(this)">C. 20</div>
+                        <div class="option" onclick="selectOption(this)">D. 25</div>
+                    </div>
+                    <button onclick="checkAnswer(5, 'B')">Kiểm tra</button>
+                    <div class="feedback" id="feedback-5"></div>
+                </div>
+                
+                <div class="question">
+                    <p><strong>Câu 2:</strong> Một lớp có 30 học sinh. Cần chọn 3 học sinh để tham gia đội văn nghệ. Hỏi có bao nhiêu cách chọn?</p>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A. 24360</div>
+                        <div class="option" onclick="selectOption(this)">B. 27000</div>
+                        <div class="option" onclick="selectOption(this)">C. 4060</div>
+                        <div class="option" onclick="selectOption(this)">D. 900</div>
+                    </div>
+                    <button onclick="checkAnswer(6, 'C')">Kiểm tra</button>
+                    <div class="feedback" id="feedback-6"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phần Tổng kết -->
+        <section id="tong-ket" class="section">
+            <h2>🎅 Luyện tập tổng hợp</h2>
+            
+            <div class="quiz-container">
+                <div class="question">
+                    <p><strong>Câu 1:</strong> Có 6 cuốn sách khác nhau, trong đó có 2 cuốn Toán, 2 cuốn Văn và 2 cuốn Anh. Có bao nhiêu cách sắp xếp các cuốn sách lên kệ sao cho các cuốn cùng môn đứng cạnh nhau?</p>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A. 48</div>
+                        <div class="option" onclick="selectOption(this)">B. 72</div>
+                        <div class="option" onclick="selectOption(this)">C. 144</div>
+                        <div class="option" onclick="selectOption(this)">D. 288</div>
+                    </div>
+                    <button onclick="checkAnswer(7, 'C')">Kiểm tra</button>
+                    <div class="feedback" id="feedback-7"></div>
+                </div>
+                
+                <div class="question">
+                    <p><strong>Câu 2:</strong> Một nhóm có 5 nam và 3 nữ. Có bao nhiêu cách chọn 4 người trong đó có ít nhất 1 nữ?</p>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A. 15</div>
+                        <div class="option" onclick="selectOption(this)">B. 30</div>
+                        <div class="option" onclick="selectOption(this)">C. 55</div>
+                        <div class="option" onclick="selectOption(this)">D. 65</div>
+                    </div>
+                    <button onclick="checkAnswer(8, 'D')">Kiểm tra</button>
+                    <div class="feedback" id="feedback-8"></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="navigation">
+            <button onclick="previousSection()">← Phần trước</button>
+            <button onclick="nextSection()">Phần sau →</button>
+        </div>
+    </div>
+
+    <script>
+        // Tạo hiệu ứng tuyết rơi
+        function createSnowflakes() {
+            const snowContainer = document.body;
+            const snowflakeCount = 50;
+            
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                
+                // Kích thước ngẫu nhiên
+                const size = Math.random() * 5 + 2;
+                snowflake.style.width = `${size}px`;
+                snowflake.style.height = `${size}px`;
+                
+                // Vị trí ngẫu nhiên
+                snowflake.style.left = `${Math.random() * 100}vw`;
+                snowflake.style.top = `${Math.random() * 100}vh`;
+                
+                // Thời gian rơi ngẫu nhiên
+                const duration = Math.random() * 10 + 5;
+                snowflake.style.animation = `fall ${duration}s linear infinite`;
+                
+                snowContainer.appendChild(snowflake);
+            }
+            
+            // Thêm CSS animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fall {
+                    0% {
+                        transform: translateY(-100vh) rotate(0deg);
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: translateY(100vh) rotate(360deg);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Tạo trang trí Giáng Sinh
+        function createChristmasOrnaments() {
+            const colors = ['#DC143C', '#228B22', '#FFD700', '#FFFFFF'];
+            const container = document.body;
+            
+            for (let i = 0; i < 15; i++) {
+                const ornament = document.createElement('div');
+                ornament.classList.add('ornament');
+                
+                // Kích thước ngẫu nhiên
+                const size = Math.random() * 15 + 10;
+                ornament.style.width = `${size}px`;
+                ornament.style.height = `${size}px`;
+                
+                // Màu sắc ngẫu nhiên
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                ornament.style.backgroundColor = color;
+                
+                // Vị trí ngẫu nhiên
+                ornament.style.left = `${Math.random() * 100}vw`;
+                ornament.style.top = `${Math.random() * 30 + 10}vh`;
+                
+                // Hiệu ứng lấp lánh
+                ornament.style.boxShadow = `0 0 5px ${color}`;
+                
+                container.appendChild(ornament);
+            }
+        }
+
+        // Các hàm tính toán
+        function factorial(n) {
+            if (n === 0 || n === 1) return 1;
+            let result = 1;
+            for (let i = 2; i <= n; i++) {
+                result *= i;
+            }
+            return result;
+        }
+
+        function calculatePermutation() {
+            const n = parseInt(document.getElementById('permutation-n').value);
+            if (n < 1 || n > 10) {
+                document.getElementById('permutation-result').textContent = "Vui lòng nhập số từ 1 đến 10";
+                return;
+            }
+            const result = factorial(n);
+            document.getElementById('permutation-result').textContent = `P(${n}) = ${n}! = ${result}`;
+        }
+
+        function calculateArrangement() {
+            const n = parseInt(document.getElementById('arrangement-n').value);
+            const k = parseInt(document.getElementById('arrangement-k').value);
+            if (n < 1 || n > 10 || k < 1 || k > n) {
+                document.getElementById('arrangement-result').textContent = "Vui lòng nhập số hợp lệ (1 ≤ k ≤ n ≤ 10)";
+                return;
+            }
+            const result = factorial(n) / factorial(n - k);
+            document.getElementById('arrangement-result').textContent = `A(${n}, ${k}) = ${n}! / (${n} - ${k})! = ${result}`;
+        }
+
+        function calculateCombination() {
+            const n = parseInt(document.getElementById('combination-n').value);
+            const k = parseInt(document.getElementById('combination-k').value);
+            if (n < 1 || n > 10 || k < 1 || k > n) {
+                document.getElementById('combination-result').textContent = "Vui lòng nhập số hợp lệ (1 ≤ k ≤ n ≤ 10)";
+                return;
+            }
+            const result = factorial(n) / (factorial(k) * factorial(n - k));
+            document.getElementById('combination-result').textContent = `C(${n}, ${k}) = ${n}! / (${k}! × (${n} - ${k})!) = ${result}`;
+        }
+
+        // Các hàm cho ví dụ tương tác
+        function generatePermutationExample() {
+            const items = ['A', 'B', 'C', 'D'];
+            const visualization = document.getElementById('permutation-visualization');
+            visualization.innerHTML = '';
+            
+            // Hiển thị các phần tử
+            items.forEach(item => {
+                const element = document.createElement('div');
+                element.classList.add('item');
+                element.textContent = item;
+                visualization.appendChild(element);
+            });
+        }
+
+        function showAllPermutations() {
+            const items = ['A', 'B', 'C'];
+            const visualization = document.getElementById('permutation-visualization');
+            visualization.innerHTML = '';
+            
+            // Tạo tất cả các hoán vị
+            const permutations = getPermutations(items);
+            
+            permutations.forEach(perm => {
+                const element = document.createElement('div');
+                element.classList.add('item');
+                element.textContent = perm.join('');
+                visualization.appendChild(element);
+            });
+        }
+
+        function generateArrangementExample() {
+            const items = ['A', 'B', 'C', 'D', 'E'];
+            const visualization = document.getElementById('arrangement-visualization');
+            visualization.innerHTML = '';
+            
+            // Hiển thị các phần tử
+            items.forEach(item => {
+                const element = document.createElement('div');
+                element.classList.add('item');
+                element.textContent = item;
+                visualization.appendChild(element);
+            });
+        }
+
+        function showAllArrangements() {
+            const items = ['A', 'B', 'C', 'D'];
+            const k = 2;
+            const visualization = document.getElementById('arrangement-visualization');
+            visualization.innerHTML = '';
+            
+            // Tạo tất cả các chỉnh hợp
+            const arrangements = getArrangements(items, k);
+            
+            arrangements.forEach(arr => {
+                const element = document.createElement('div');
+                element.classList.add('item');
+                element.textContent = arr.join('');
+                visualization.appendChild(element);
+            });
+        }
+
+        function generateCombinationExample() {
+            const items = ['A', 'B', 'C', 'D', 'E'];
+            const visualization = document.getElementById('combination-visualization');
+            visualization.innerHTML = '';
+            
+            // Hiển thị các phần tử
+            items.forEach(item => {
+                const element = document.createElement('div');
+                element.classList.add('item');
+                element.textContent = item;
+                visualization.appendChild(element);
+            });
+        }
+
+        function showAllCombinations() {
+            const items = ['A', 'B', 'C', 'D'];
+            const k = 2;
+            const visualization = document.getElementById('combination-visualization');
+            visualization.innerHTML = '';
+            
+            // Tạo tất cả các tổ hợp
+            const combinations = getCombinations(items, k);
+            
+            combinations.forEach(comb => {
+                const element = document.createElement('div');
+                element.classList.add('item');
+                element.textContent = comb.join('');
+                visualization.appendChild(element);
+            });
+        }
+
+        // Các hàm tiện ích
+        function getPermutations(arr) {
+            if (arr.length === 0) return [[]];
+            const result = [];
+            
+            for (let i = 0; i < arr.length; i++) {
+                const current = arr[i];
+                const remaining = [...arr.slice(0, i), ...arr.slice(i + 1)];
+                const permutations = getPermutations(remaining);
+                
+                for (const perm of permutations) {
+                    result.push([current, ...perm]);
+                }
+            }
+            
+            return result;
+        }
+
+        function getArrangements(arr, k) {
+            if (k === 0) return [[]];
+            const result = [];
+            
+            for (let i = 0; i < arr.length; i++) {
+                const current = arr[i];
+                const remaining = [...arr.slice(0, i), ...arr.slice(i + 1)];
+                const arrangements = getArrangements(remaining, k - 1);
+                
+                for (const arr of arrangements) {
+                    result.push([current, ...arr]);
+                }
+            }
+            
+            return result;
+        }
+
+        function getCombinations(arr, k) {
+            if (k === 0) return [[]];
+            if (arr.length === 0) return [];
+            
+            const result = [];
+            const [first, ...rest] = arr;
+            
+            // Các tổ hợp chứa phần tử đầu tiên
+            const withFirst = getCombinations(rest, k - 1);
+            for (const comb of withFirst) {
+                result.push([first, ...comb]);
+            }
+            
+            // Các tổ hợp không chứa phần tử đầu tiên
+            const withoutFirst = getCombinations(rest, k);
+            result.push(...withoutFirst);
+            
+            return result;
+        }
+
+        // Xử lý câu hỏi trắc nghiệm
+        function selectOption(element) {
+            // Bỏ chọn tất cả các lựa chọn trong cùng câu hỏi
+            const options = element.parentElement.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            
+            // Chọn lựa chọn hiện tại
+            element.classList.add('selected');
+        }
+
+        function checkAnswer(questionId, correctAnswer) {
+            const questionElement = document.getElementById(`feedback-${questionId}`).parentElement;
+            const selectedOption = questionElement.querySelector('.option.selected');
+            
+            if (!selectedOption) {
+                alert('Vui lòng chọn một đáp án!');
+                return;
+            }
+            
+            const selectedAnswer = selectedOption.textContent.charAt(0);
+            const feedbackElement = document.getElementById(`feedback-${questionId}`);
+            
+            if (selectedAnswer === correctAnswer) {
+                selectedOption.classList.add('correct');
+                feedbackElement.textContent = 'Chính xác! Bạn đã trả lời đúng.';
+                feedbackElement.className = 'feedback correct';
+                
+                // Tạo hiệu ứng tuyết khi trả lời đúng
+                createCelebrationSnow();
+            } else {
+                selectedOption.classList.add('incorrect');
+                feedbackElement.textContent = `Sai rồi! Đáp án đúng là ${correctAnswer}.`;
+                feedbackElement.className = 'feedback incorrect';
+                
+                // Đánh dấu đáp án đúng
+                const options = questionElement.querySelectorAll('.option');
+                options.forEach(opt => {
+                    if (opt.textContent.charAt(0) === correctAnswer) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        // Tạo hiệu ứng tuyết ăn mừng
+        function createCelebrationSnow() {
+            const celebrationContainer = document.body;
+            const celebrationCount = 30;
+            
+            for (let i = 0; i < celebrationCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                
+                // Kích thước ngẫu nhiên
+                const size = Math.random() * 8 + 4;
+                snowflake.style.width = `${size}px`;
+                snowflake.style.height = `${size}px`;
+                
+                // Vị trí ngẫu nhiên
+                const startX = Math.random() * window.innerWidth;
+                snowflake.style.left = `${startX}px`;
+                snowflake.style.top = `0px`;
+                
+                // Thời gian rơi ngẫu nhiên
+                const duration = Math.random() * 3 + 2;
+                snowflake.style.animation = `celebrationFall ${duration}s ease-out forwards`;
+                
+                celebrationContainer.appendChild(snowflake);
+                
+                // Xóa sau khi hoàn thành animation
+                setTimeout(() => {
+                    snowflake.remove();
+                }, duration * 1000);
+            }
+            
+            // Thêm CSS animation cho hiệu ứng ăn mừng
+            if (!document.getElementById('celebration-style')) {
+                const style = document.createElement('style');
+                style.id = 'celebration-style';
+                style.textContent = `
+                    @keyframes celebrationFall {
+                        0% {
+                            transform: translateY(0) rotate(0deg);
+                            opacity: 1;
+                        }
+                        100% {
+                            transform: translateY(${window.innerHeight}px) rotate(360deg);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
+        // Điều hướng giữa các phần
+        let currentSection = 0;
+        const sections = document.querySelectorAll('.section');
+
+        function updateProgress() {
+            const progress = ((currentSection + 1) / sections.length) * 100;
+            document.getElementById('progress').style.width = `${progress}%`;
+        }
+
+        function showSection(index) {
+            sections.forEach((section, i) => {
+                if (i === index) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+            currentSection = index;
+            updateProgress();
+        }
+
+        function nextSection() {
+            if (currentSection < sections.length - 1) {
+                showSection(currentSection + 1);
+            }
+        }
+
+        function previousSection() {
+            if (currentSection > 0) {
+                showSection(currentSection - 1);
+            }
+        }
+
+        // Khởi tạo ứng dụng
+        window.onload = function() {
+            createSnowflakes();
+            createChristmasOrnaments();
+            showSection(0);
+            generatePermutationExample();
+            generateArrangementExample();
+            generateCombinationExample();
+        };
+    </script>
+</body>
+</html>
